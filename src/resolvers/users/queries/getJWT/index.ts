@@ -1,6 +1,7 @@
 import { QueryResolvers } from "$/src/generated/graphql";
 import logger from "$/src/logger";
 
+// eslint-disable-next-line
 export const getJWT: Extract<QueryResolvers["getJWT"], Function> = async (
   _,
   { username, password },

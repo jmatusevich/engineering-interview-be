@@ -15,12 +15,11 @@ function createMockedArgumentsWithSortFilterAndContext(
   context: Context
   // eslint-disable-next-line
 ): [any, any, any, any] {
-  // eslint-disable-next-line
   return [
-    null as any,
-    { sortedBy, withStatuses: filteredBy } as any,
+    null as any, // eslint-disable-line
+    { sortedBy, withStatuses: filteredBy } as any, // eslint-disable-line
     context,
-    null as any,
+    null as any, // eslint-disable-line
   ];
 }
 

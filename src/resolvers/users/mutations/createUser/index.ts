@@ -2,7 +2,7 @@ import { MutationResolvers } from "$/src/generated/graphql";
 import logger from "$/src/logger";
 export const createUser: Extract<
   MutationResolvers["createUser"],
-  Function
+  Function // eslint-disable-line
 > = async (_, { input }, context) => {
   if (!input) {
     logger.info("create with no input");

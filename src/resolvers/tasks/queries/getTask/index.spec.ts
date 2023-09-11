@@ -2,7 +2,7 @@ import { describe, expect, it, jest, beforeEach } from "@jest/globals";
 import { Context, User } from "$/src/types";
 import TasksDataSource from "$/src/data-sources/database/tasks";
 import { getTask } from ".";
-import { SortEnum, TaskStatus } from "$/src/generated/graphql";
+import { TaskStatus } from "$/src/generated/graphql";
 import { Mock } from "jest-mock";
 
 type getTaskMockType = TasksDataSource["getTask"];
