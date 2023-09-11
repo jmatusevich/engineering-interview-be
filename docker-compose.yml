@@ -1,0 +1,31 @@
+version: "1"
+services:
+  app:
+    restart: on-failure
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      POSTGRES_USER: todo
+      POSTGRES_PASSWORD: todo
+      POSTGRES_DATABASE: todo
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: postgres
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - "3000:3000"
+  postgres:
+    image: postgres:15
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: todo
+      POSTGRES_PASSWORD: todo
+      POSTGRES_DB: todo
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
