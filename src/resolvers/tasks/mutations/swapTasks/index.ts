@@ -22,6 +22,10 @@ export const swapTasks: Extract<
     childLogger.info("update with no task b");
     return null;
   }
+  if (aTaskId === bTaskId) {
+    childLogger.info("swapping task with itself");
+    return null;
+  }
 
   const tasks = await Promise.all([
     context.dataSources.tasks.getTask(aTaskId),
