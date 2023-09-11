@@ -1,0 +1,100 @@
+enum TaskStatus {
+  TO_DO
+  IN_PROGRESS
+  DONE
+  ARCHIVED
+}
+
+type Task {
+  id: Int!
+  title: String!
+  description: String
+  status: TaskStatus!
+  order: Int!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type User {
+  id: Int!
+  username: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+input UserInput {
+  username: String!
+  password: String!
+  passwordRepeated: String!
+}
+
+input PasswordUpdate {
+  oldPassword: String!
+  password: String!
+  passwordRepeated: String!
+}
+
+input UserUpdateInput {
+  username: String
+  passwordDetails: PasswordUpdate
+}
+
+input TaskInput {
+  title: String!
+  description: String
+  status: TaskStatus
+}
+
+input TaskUpdateInput {
+  title: String
+  description: String
+  status: TaskStatus
+}
+
+enum SortEnum {
+  TITLE
+  CREATED_AT
+  UPDATED_AT
+  STATUS
+  ORDER
+}
+
+type GroupedTasks {
+  TO_DO: [Task!]
+  IN_PROGRESS: [Task!]
+  DONE: [Task!]
+  ARCHIVED: [Task!]
+}
+
+type Mutation {
+  # It returns the row updated
+  updateTask(taskId: Int!, input: TaskUpdateInput): Task
+  # It updates the status of a series of tasks
+  batchUpdateTasksStatuses(taskIds: [Int!]!, status: TaskStatus!): [Task]
+  # It returns all the changed rows
+  moveTaskToPosition(taskId: Int!, position: Int!): [Task]
+  # It returns the rows swapped
+  swapTasks(aTaskId: Int!, bTaskId: Int!): [Task]
+  # It returns true if the delete was successful
+  deleteTask(taskId: Int!): Boolean!
+  # It returns the new task
+  createTask(input: TaskInput!): Task
+  # It returns the new user
+  createUser(input: UserInput!): User
+  # It returns true if the delete was successful
+  deleteUser: Boolean!
+  # It returns the updated user
+  updateUser(input: UserUpdateInput!): User
+}
+
+type Query {
+  getTask(taskId: Int!): Task
+  getTasks(sortedBy: [SortEnum!], withStatuses: [TaskStatus!]): [Task]
+  getStatusGroupedTasks(
+    sortedBy: [SortEnum!]
+    withStatuses: [TaskStatus!]
+  ): GroupedTasks
+
+  getCurrentUser: User
+  getJWT(username: String!, password: String!): String
+}
