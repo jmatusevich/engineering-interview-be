@@ -138,6 +138,7 @@ class UsersDataSource extends SQLDataSource {
     return this.knex
       .update({
         ...fieldsToUpdate,
+        updatedAt: this.knex.raw("DEFAULT"),
       })
       .from("users")
       .where("id", user.id)
