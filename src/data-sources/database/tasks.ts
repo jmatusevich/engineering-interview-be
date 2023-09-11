@@ -273,7 +273,7 @@ class TasksDataSource extends SQLDataSource {
     if (!isValidInt(userId)) {
       throw new Error("InvalidUserId");
     }
-    if (!isValidString(title, 3)) {
+    if (!isValidString(title)) {
       throw new Error("InvalidTitle");
     }
     if (!isValidStatus(status)) {
