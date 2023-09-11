@@ -28,7 +28,7 @@ class UsersDataSource extends SQLDataSource {
       throw new Error("ServerMisconfiguration");
     }
     return new Promise<User | null>((resolve, reject) => {
-      jwt.verify(token, secret, (error, decoded) => {
+      jwt.verify(token, secret, { algorithms: ["HS256"] }, (error, decoded) => {
         if (error) {
           reject(error);
         } else if (decoded?.sub) {
@@ -56,7 +56,7 @@ class UsersDataSource extends SQLDataSource {
     }
     const hash = user.password;
     if (await bcrypt.compare(password, hash)) {
-      return jwt.sign({ sub: user.id }, secret);
+      return jwt.sign({ sub: user.id }, secret, { algorithm: "HS256" });
     } else {
       throw new Error("InvalidLogin");
     }
